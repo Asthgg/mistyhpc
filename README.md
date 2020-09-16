@@ -75,10 +75,10 @@ Ejecución:
 
 Comparación
 
-Método | Time, ms | Speedup | GB/s | GFLOP/s | reporte
------------- | ------------- | ------------- | ------------- | -------------
-Original |477.9+-1.3 | 4 | 0.6+-0.0 | 1.4+-0.0 | [Colfax labs](./ColfaxLabs/stencil/edgedetection.o127503) 
-Vectorizado | 40.6+-0.3 | 16.380 | 7.1+-0.1 | 16.0+-01 | [Colfax labs](./ColfaxLabs/stencil/edgedetection.o127505)
+| Método | Time, ms | Speedup | GB/s | GFLOP/s | reporte |
+| ------------ | ------------- | ------------- | ------------- | ------------- | ------------- |
+| Original |477.9+-1.3 | 4 | 0.6+-0.0 | 1.4+-0.0 | [ver](./ColfaxLabs/stencil/edgedetection.o127503) |
+| Vectorizado | 40.6+-0.3 | 16.380 | 7.1+-0.1 | 16.0+-01 | [ver](./ColfaxLabs/stencil/edgedetection.o127505) |
 
 
 
