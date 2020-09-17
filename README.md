@@ -91,13 +91,31 @@ En este ejercicio se utilizará la integración numérica. La función tiene 3 a
   - **a** donde comienza el intervalo
   - **b** donde termina el intervalo
 
+Optimización: 
+
+```
+> Especificar el compilador Xeon Phi en el Makefile
+```
+![Output](./static/images/xmic2.png "Image xmic2")
+
+```
+> Utilizar la función de reducción de simd en el worker.cc
+```
+![Output](./static/images/simd2.png "Image simd2")
+
+```
+> Declarar simd tanto el library.o como library.h
+```
+![Output](./static/images/declaresimd.png "Image declaresimd")
+![Output](./static/images/declaresimd2.png "Image declaresimd2")
+
 Comparación
 
 | Método | Time, ms | Speedup | GSteps/s | reporte |
 | ------------ | ------------- | ------------- | ------------- | ------------- |
 | Básico | 95500.574 | 4 | 0.010 | [ver](./ColfaxLabs/integral/numintegr.o127562) |
 | Vectorizado | 18829.7+-2.3 | 2.050 | 0.053 |  [ver](./ColfaxLabs/integral/numintegr.o127563) |
-| Vectorizado + Xeon Phi | 6883.9+-0.7 | 2.050 | 0.145 | [ver](./ColfaxLabs/integral/numintegr.o127563) |
+| Vectorizado + Xeon Phi | 6883.9+-0.7 | 2.050 | 0.145 | [ver](./ColfaxLabs/integral/numintegr.o127564) |
 
 
 
