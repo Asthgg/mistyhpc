@@ -3,8 +3,9 @@ High performance computing project
 
 ##### Tabla de contenido 
 [Colfax](#Colfax)  
-[Hello World](#Hello\World) 
-[Stencil](#Stencil)  
+[Hello World](#hello-world) 
+[Stencil](#Stencil) 
+[Integral](#Integral)  
 
 
 ## Colfax
@@ -79,6 +80,24 @@ Comparación
 | ------------ | ------------- | ------------- | ------------- | ------------- | ------------- |
 | Original |477.9+-1.3 | 4 | 0.6+-0.0 | 1.4+-0.0 | [ver](./ColfaxLabs/stencil/edgedetection.o127503) |
 | Vectorizado | 40.6+-0.3 | 16.380 | 7.1+-0.1 | 16.0+-01 | [ver](./ColfaxLabs/stencil/edgedetection.o127505) |
+
+
+#### Integral
+
+- [ver archivos](./ColfaxLabs/integral)
+
+En este ejercicio se utilizará la integración numérica. La función tiene 3 argumentos de entrada:
+  - **n** indica los pasos que tendrá el ciclo = 1 billón
+  - **a** donde comienza el intervalo
+  - **b** donde termina el intervalo
+
+Comparación
+
+| Método | Time, ms | Speedup | GSteps/s | reporte |
+| ------------ | ------------- | ------------- | ------------- | ------------- |
+| Básico | 95500.574 | 4 | 0.010 | [ver](./ColfaxLabs/integral/numintegr.o127562) |
+| Vectorizado | 18829.7+-2.3 | 2.050 | 0.053 |  [ver](./ColfaxLabs/integral/numintegr.o127563) |
+| Vectorizado + Xeon Phi | 6883.9+-0.7 | 2.050 | 0.145 | [ver](./ColfaxLabs/integral/numintegr.o127563) |
 
 
 
