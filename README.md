@@ -3,9 +3,14 @@ High performance computing project
 
 ##### Tabla de contenido 
 [Colfax](#Colfax)  
+
 [Hello World](#hello-world) 
+
 [Stencil](#Stencil) 
+
 [Integral](#Integral)  
+
+[Forks](#Forks)  
 
 
 ## Colfax
@@ -118,6 +123,27 @@ Comparación
 | Vectorizado + Xeon Phi | 6883.9+-0.7 | 2.050 | 0.145 | [ver](./ColfaxLabs/integral/numintegr.o127564) |
 
 
+#### Vectorizing Monte-Carlo Diffusion
+
+La aplicación genera una simulación de camino aleatorio de una dimensión. Se comienza en el centro, a cada paso, las partículas pueden moverse de manera aleatoria dada una función de distribución. El objetivo es encontrar el número de partículas que tienen una posión mayor a un límite dado.
+
+diffusion.cc*
+distribution.h*
+distribution.cc*
 
 
+
+1. Correr la app sin ninguna modificación para ver cual es su rendimiento sin vectorización
+- make
+- Enviar la aplicación a la cola: echo ./app | qsub
+
+omp declare simd
+
+
+#### Forks
+
+En este ejercicio se realizan dos enfoques del paralelismo:
+- Procesos: es un flujo de instrucciones con su propio espacio de memoria. Para intercambiar datos entre procesos, es necesario el paso de mensajes entre éstos.
+
+- Hilos: son flujos de instrucciones independientes que comparten el mismo espacio de memoria. Un hilo puedo leer de forma transparente, los datos en otro hilo.
 
