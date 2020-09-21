@@ -79,12 +79,29 @@ Ejecución:
 ```
 ![Output](./static/images/edgedeo.png "Image edge")
 
+Ahora realizaremos este mismo programa pero de forma paralela para que haga uso de hilos.
+
+Para ello, debemos agregar la declaración pragma para indicar la paralelización del ciclo.
+```
+> #pragma omp parallel for
+```
+![Output](./static/images/parallelforstencil.png "Image parallelforstencil")
+
+```
+> make queue
+> cat edgedetection.o127857
+```
+
+Esta declaración es segura hacerla ya que no tenemos concurrencia en el acceso de memoria para ninguna asignación dentro del ciclo, por lo que no es necesario hacer ninguna otra modificación.
+
+
 Comparación
 
 | Método | Time, ms | Speedup | GB/s | GFLOP/s | reporte |
 | ------------ | ------------- | ------------- | ------------- | ------------- | ------------- |
 | Original |477.9+-1.3 | 4 | 0.6+-0.0 | 1.4+-0.0 | [ver](./ColfaxLabs/stencil/edgedetection.o127503) |
 | Vectorizado | 40.6+-0.3 | 16.380 | 7.1+-0.1 | 16.0+-01 | [ver](./ColfaxLabs/stencil/edgedetection.o127505) |
+| Threads | 7.3+/0.0 | 16.380 | 39.6+-0.2 | 89.1+-0.5 | [ver](./ColfaxLabs/stencil/edgedetection.o127857) |
 
 
 #### Integral
@@ -125,25 +142,41 @@ Comparación
 
 #### Vectorizing Monte-Carlo Diffusion
 
+- [ver archivos](./ColfaxLabs/vectorization-mc)
+
 La aplicación genera una simulación de camino aleatorio de una dimensión. Se comienza en el centro, a cada paso, las partículas pueden moverse de manera aleatoria dada una función de distribución. El objetivo es encontrar el número de partículas que tienen una posión mayor a un límite dado.
 
 diffusion.cc*
 distribution.h*
 distribution.cc*
 
+Pasos:
+```
+> Indicar la vectorización de la función dist_func tanto en el archivo .h y .cc 
+> #pragma omp declare simd
+```
+distribution.cc
+![Output](./static/images/mcsimd.png "Image mcsimd")
 
+distribution.h
+![Output](./static/images/mcsimd2.png "Image mcsimd2")
 
-1. Correr la app sin ninguna modificación para ver cual es su rendimiento sin vectorización
-- make
-- Enviar la aplicación a la cola: echo ./app | qsub
-
-omp declare simd
+```
+> Luego, cuando compilemos el programa, veremos en el reporte de optimización que efectivamente el ciclo fue vectorizado.
+```
+![Output](./static/images/mc-was-v.png "Image was-v")
 
 
 #### Forks
 
+- [ver archivos](./ColfaxLabs/forks)
+
 En este ejercicio se realizan dos enfoques del paralelismo:
 - Procesos: es un flujo de instrucciones con su propio espacio de memoria. Para intercambiar datos entre procesos, es necesario el paso de mensajes entre éstos.
 
+![Output](./static/images/forkprocess.png "Image forkeprocess")
+
 - Hilos: son flujos de instrucciones independientes que comparten el mismo espacio de memoria. Un hilo puedo leer de forma transparente, los datos en otro hilo.
+
+![Output](./static/images/forkthread.png "Image forkthread")
 

@@ -9,6 +9,7 @@ void ApplyStencil(ImageClass<P> & img_in, ImageClass<P> & img_out) {
   P * in  = img_in.pixel;
   P * out = img_out.pixel;
 
+#pragma omp parallel for
   for (int i = 1; i < height-1; i++)
 #pragma omp simd
     for (int j = 1; j < width-1; j++) {
