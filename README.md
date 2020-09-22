@@ -1,7 +1,8 @@
 # mistyhpc
 High performance computing project
 
-##### Tabla de contenido 
+#### Tabla de contenido
+
 [Colfax](#Colfax)  
 
 [Hello World](#hello-world) 
@@ -12,11 +13,15 @@ High performance computing project
 
 [Forks](#Forks)  
 
+[Vectorizing Monte-Carlo diffusion](#vectorizing-monte-carlo-diffusion)
+
+[Multithreaded Filtering](#multithreaded-filtering)
+
 
 ## Colfax
 Los laboratorios del MOOC se encuentran en la carpeta [Colfax labs](./ColfaxLabs)
 
-#### Hello World
+### Hello World
 
 Compilar un Hola mundo en el clúster. Se debe modificar el archivo Makefile para que use el compilador C++ de Intel, luego hacer un zip de éste únicamente y subirlo a la página de Colfax.
 
@@ -40,7 +45,7 @@ Pasos para ejecutar el programa
 ![Output](./static/images/app-icc.png "Image app-icc output")
 
 
-#### Stencil
+### Stencil
 
 - [ver archivos](./ColfaxLabs/stencil)
 
@@ -104,7 +109,7 @@ Comparación
 | Threads | 7.3+/0.0 | 16.380 | 39.6+-0.2 | 89.1+-0.5 | [ver](./ColfaxLabs/stencil/edgedetection.o127857) |
 
 
-#### Integral
+### Integral
 
 - [ver archivos](./ColfaxLabs/integral)
 
@@ -140,7 +145,7 @@ Comparación
 | Vectorizado + Xeon Phi | 6883.9+-0.7 | 2.050 | 0.145 | [ver](./ColfaxLabs/integral/numintegr.o127564) |
 
 
-#### Vectorizing Monte-Carlo Diffusion
+### Vectorizing Monte-Carlo Diffusion
 
 - [ver archivos](./ColfaxLabs/vectorization-mc)
 
@@ -167,7 +172,7 @@ distribution.h
 ![Output](./static/images/mc-was-v.png "Image was-v")
 
 
-#### Forks
+### Forks
 
 - [ver archivos](./ColfaxLabs/forks)
 
@@ -180,3 +185,33 @@ En este ejercicio se realizan dos enfoques del paralelismo:
 
 ![Output](./static/images/forkthread.png "Image forkthread")
 
+
+### Multithreaded Filtering
+
+Este es el laboratorio #3
+
+El programa realiza un filtro dado un número límite (threshold) y una matriz de 2 dimensiones. Cada fila de la matriz representa un vector de 1 dimension, donde se sumarán todos sus elementos. Se tendrá además una condición: el resultado de la suma de cada vector debe ser mayor al threshold. Si es mayor entonces e agrega el índice de la fila al vector de salida. Finalmente se ordena el vector de salida de menor a mayor.
+
+Solución:
+
+Podemos realizar la suma de cada vector en hilos independientes. Sin embargo, debemos tener cuidado con el **data race** que puede provocarse al hacer push en el vector de salida, puesto que dos o más hilos podrían intentar escribir sobre ese mismo espacio de memoria a la vez si la suma de su vector asignado cumple la condición.
+
+1. Añadir la declaración para ejecución paralela del ciclo
+```
+> #pragma omp parallel for
+```
+![Output](./static/images/parallelforfilte.png "Image parallelforfilte")
+
+2. Añadir la declaración para el segmento donde puede ocurrir el **data race**
+```
+> #pragma omp critical
+```
+![Output](./static/images/parallelforcritical.png "Image parallelforcritical")
+
+
+Comparación
+
+| Método | Time, ms | reporte |
+| ------------ | ------------- |
+| Secuencial | 3.814191 | [ver](./ColfaxLabs/threads-filter/lab2.o127874) |
+| Multihilo |  0.456628 | [ver](./ColfaxLabs/threads-filter/lab2.o127877) |
