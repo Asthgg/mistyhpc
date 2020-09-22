@@ -200,18 +200,18 @@ Podemos realizar la suma de cada vector en hilos independientes. Sin embargo, de
 ```
 > #pragma omp parallel for
 ```
-![Output](./static/images/parallelforfilte.png "Image parallelforfilte")
+![Output](./static/images/parallelforfilter.png "Image parallelforfilte")
 
 2. Añadir la declaración para el segmento donde puede ocurrir el **data race**
 ```
 > #pragma omp critical
 ```
-![Output](./static/images/parallelforcritical.png "Image parallelforcritical")
+![Output](./static/images/parallelcritical.png "Image parallelforcritical")
 
 
 Comparación
 
 | Método | Time, ms | reporte |
-| ------------ | ------------- |
+| ------------ | ------------- | ------------- |
 | Secuencial | 3.814191 | [ver](./ColfaxLabs/threads-filter/lab2.o127874) |
 | Multihilo |  0.456628 | [ver](./ColfaxLabs/threads-filter/lab2.o127877) |
