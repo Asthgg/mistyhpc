@@ -1,4 +1,5 @@
 #include "image.h"
+#include <hbwmalloc.h>
 
 template<typename P>
 ImageClass<P>::ImageClass(int const _width, int const _height) 
@@ -6,7 +7,8 @@ ImageClass<P>::ImageClass(int const _width, int const _height)
 
   // Initialize a blank image
 
-  pixel = (P*)_mm_malloc(sizeof(P)*width*height, 64);
+//  pixel = (P*)_mm_malloc(sizeof(P)*width*height, 64);
+  hbw_posix_memalign((void**)&pixel, 64, sizeof(P)*width*height);
 #pragma omp parallel for
   for (int i = 0; i < height; i++)
     for (int j = 0; j < width; j++)
@@ -68,7 +70,9 @@ ImageClass<P>::ImageClass(char const * file_name) {
   fclose(fp);
 
   // Convert from png_bytep to P
-  pixel = (P*)_mm_malloc(sizeof(P)*width*height, 64);
+
+ // pixel = (P*)_mm_malloc(sizeof(P)*width*height, 64);
+ hbw_posix_memalign((void**)&pixel, 64, sizeof(P)*width*height);
 
 #pragma omp parallel for 
   for(int i = 0; i < height; i++)
@@ -83,7 +87,8 @@ ImageClass<P>::ImageClass(char const * file_name) {
 template<typename P>
 ImageClass<P>::~ImageClass() {
   // Deallocate image
-  _mm_free(pixel);
+ // _mm_free(pixel);
+  hbw_free(pixel);
 }
 
 
@@ -131,3 +136,4 @@ void ImageClass<P>::WriteToFile(char const * file_name) {
 
 
 template class ImageClass<float>;
+template class ImageClass<png_byte>;

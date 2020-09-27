@@ -3,7 +3,7 @@
 #include "image.h"
 #include "stencil.h"
 
-#define P float
+#define P png_byte
 
 const int nTrials = 10;
 const int skipTrials = 3; // Skip first iteration as warm-up

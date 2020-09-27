@@ -1,6 +1,6 @@
 CXX=icpc
 CXXFLAGS=-c -qopenmp -qopt-report=5 -xMIC-AVX512
-LDFLAGS=-qopenmp -lpng
+LDFLAGS=-qopenmp -lpng -lmemkind
 
 OBJECTS=main.o image.o stencil.o
 

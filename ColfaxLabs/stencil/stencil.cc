@@ -12,8 +12,9 @@ void ApplyStencil(ImageClass<P> & img_in, ImageClass<P> & img_out) {
 #pragma omp parallel for
   for (int i = 1; i < height-1; i++)
 #pragma omp simd
+#pragma vector nontemporal
     for (int j = 1; j < width-1; j++) {
-      P val = -in[(i-1)*width + j-1] -   in[(i-1)*width + j] - in[(i-1)*width + j+1] 
+      int val = -in[(i-1)*width + j-1] -   in[(i-1)*width + j] - in[(i-1)*width + j+1] 
 	-in[(i  )*width + j-1] + 8*in[(i  )*width + j] - in[(i  )*width + j+1] 
 	-in[(i+1)*width + j-1] -   in[(i+1)*width + j] - in[(i+1)*width + j+1];
 
@@ -26,3 +27,5 @@ void ApplyStencil(ImageClass<P> & img_in, ImageClass<P> & img_out) {
 }
 
 template void ApplyStencil<float>(ImageClass<float> & img_in, ImageClass<float> & img_out);
+
+template void ApplyStencil<png_byte>(ImageClass<png_byte> & img_in, ImageClass<png_byte> & img_out);

@@ -107,6 +107,10 @@ Comparación
 | Original |477.9+-1.3 | 4 | 0.6+-0.0 | 1.4+-0.0 | [ver](./ColfaxLabs/stencil/edgedetection.o127503) |
 | Vectorizado | 40.6+-0.3 | 16.380 | 7.1+-0.1 | 16.0+-01 | [ver](./ColfaxLabs/stencil/edgedetection.o127505) |
 | Threads | 7.3+/0.0 | 16.380 | 39.6+-0.2 | 89.1+-0.5 | [ver](./ColfaxLabs/stencil/edgedetection.o127857) |
+| HBM numactl | 1.3+-0.0 | 16.380 | 226.5+4.7 | 509.6+10.6 | [ver](./ColfaxLabs/stencil/edgedetection.o128235) |
+| HBM memkind | 1.2+-0.0 | 16.380 | 235.3+-7.0 | 529.5+-15.7 | [ver](./ColfaxLabs/stencil/edgedetection.o128236) |
+| Streaming | 0.9+-0.0 | 16.380 | 312.5+-11.6 | 703.2+-26.1 | [ver](./ColfaxLabs/stencil/edgedetection.o128237) |
+| bit storage | 0.6+-0.0 | 16.640 | 113.3+-6.2 | 1019.7+-55.g | [ver](./ColfaxLabs/stencil/edgedetection.o128238) |
 
 
 ### Integral
@@ -188,6 +192,8 @@ En este ejercicio se realizan dos enfoques del paralelismo:
 
 ### Multithreaded Filtering
 
+- [ver archivos](./ColfaxLabs/threads-filter)
+
 Este es el laboratorio #3
 
 El programa realiza un filtro dado un número límite (threshold) y una matriz de 2 dimensiones. Cada fila de la matriz representa un vector de 1 dimension, donde se sumarán todos sus elementos. Se tendrá además una condición: el resultado de la suma de cada vector debe ser mayor al threshold. Si es mayor entonces e agrega el índice de la fila al vector de salida. Finalmente se ordena el vector de salida de menor a mayor.
@@ -215,3 +221,15 @@ Comparación
 | ------------ | ------------- | ------------- |
 | Secuencial | 3.814191 | [ver](./ColfaxLabs/threads-filter/lab2.o127874) |
 | Multihilo |  0.456628 | [ver](./ColfaxLabs/threads-filter/lab2.o127877) |
+
+
+###  Fast Fourier Transforms 
+
+- [ver archivos](./ColfaxLabs/memory-fft)
+
+Comparación
+
+| Método | Time, ms | reporte |
+| ------------ | ------------- | ------------- |
+| Original | 13.048870 | [ver](./ColfaxLabs/memory-fft/fft.o128249) |
+| HBM |  6.691161 | [ver](./ColfaxLabs/memory-fft/fft.o128255) |
